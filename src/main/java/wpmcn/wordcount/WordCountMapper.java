@@ -1,9 +1,8 @@
 package wpmcn.wordcount;
 
-import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
-import wpmcn.mradapter.MapAlgorithm;
+import org.apache.hadoop.mapreduce.Mapper;
 
 import java.io.IOException;
 import java.util.StringTokenizer;
@@ -13,18 +12,20 @@ import java.util.StringTokenizer;
  *
  * @author <a href="mailto:billmcn@gmail.com">W.P. McNeill</a>
  */
-abstract public class WordCountMapAlgorithm extends MapAlgorithm<LongWritable, Text, Text, LongWritable> {
+public class WordCountMapper extends Mapper<LongWritable, Text, Text, LongWritable> {
    private LongWritable one = new LongWritable(1);
 
-   public WordCountMapAlgorithm(Configuration configuration) {
-      super(configuration);
-   }
-
-   protected void map(LongWritable lineNumber, Text line) throws IOException, InterruptedException {
+   @Override
+   protected void map(LongWritable lineNumber, Text line, Context context) throws IOException,
+         InterruptedException {
       StringTokenizer tokenizer = new StringTokenizer(line.toString());
       while (tokenizer.hasMoreTokens()) {
          Text token = new Text(tokenizer.nextToken().toLowerCase());
-         write(token, one);
+         write(token, one, context);
       }
+   }
+
+   protected void write(Text token, LongWritable count, Context context) throws IOException, InterruptedException {
+      context.write(token, count);
    }
 }

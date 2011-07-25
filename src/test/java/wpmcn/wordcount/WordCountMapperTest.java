@@ -15,25 +15,25 @@ import static junit.framework.Assert.assertEquals;
 /**
  * @author <a href="mailto:billmcn@gmail.com">W.P. McNeill</a>
  */
-public class WordCountMapAlgorithmTest {
-   private class WordCountMapTestHarness extends WordCountMapAlgorithm {
+public class WordCountMapperTest {
+   private class WordCountMapperTestHarness extends WordCountMapper {
       public List<Pair<String, Long>> keyValuePairs = new ArrayList<Pair<String, Long>>();
 
-      public WordCountMapTestHarness() {
-         super(null);
+      @Override
+      protected void write(Text token, LongWritable count, Context context) {
+         keyValuePairs.add(new Pair<String, Long>(token.toString(), count.get()));
       }
 
-      @Override
-      protected void write(Text token, LongWritable count) throws IOException, InterruptedException {
-         keyValuePairs.add(new Pair<String, Long>(token.toString(), count.get()));
+      public void map(LongWritable lineNumber, Text text) throws IOException, InterruptedException {
+         map(lineNumber, text, null);
       }
    }
 
-   private WordCountMapTestHarness wordCountMapper;
+   private WordCountMapperTestHarness wordCountMapper;
 
    @Before
    public void setUp() throws Exception {
-      wordCountMapper = new WordCountMapTestHarness();
+      wordCountMapper = new WordCountMapperTestHarness();
    }
 
    @Test

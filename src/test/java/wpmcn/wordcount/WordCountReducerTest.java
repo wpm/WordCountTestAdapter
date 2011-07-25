@@ -16,28 +16,28 @@ import static junit.framework.Assert.assertEquals;
 /**
  * @author <a href="mailto:billmcn@gmail.com">W.P. McNeill</a>
  */
-public class WordCountReduceAlgorithmTest {
-   private class WordCountReduceTestHarness extends WordCountReduceAlgorithm {
+public class WordCountReducerTest {
+   private class WordCountReducerTestHarness extends WordCountReducer {
       public Map<String, Long> tokenCounts = new HashMap<String, Long>();
 
-      public WordCountReduceTestHarness() {
-         super(null);
-      }
-
       @Override
-      protected void write(Text token, LongWritable count) throws IOException, InterruptedException {
+      protected void write(Text token, LongWritable count, Context context) {
          String t = token.toString();
          if (!tokenCounts.containsKey(t))
             tokenCounts.put(t, 0L);
          tokenCounts.put(t, tokenCounts.get(t) + count.get());
       }
+
+      public void reduce(Text token, Iterable<LongWritable> counts) throws IOException, InterruptedException {
+         reduce(token, counts, null);
+      }
    }
 
-   private WordCountReduceTestHarness wordCountReducer;
+   private WordCountReducerTestHarness wordCountReducer;
 
    @Before
    public void setUp() throws Exception {
-      wordCountReducer = new WordCountReduceTestHarness();
+      wordCountReducer = new WordCountReducerTestHarness();
    }
 
    @Test
