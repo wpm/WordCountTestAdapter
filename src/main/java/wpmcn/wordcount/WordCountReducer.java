@@ -21,6 +21,15 @@ public class WordCountReducer extends Reducer<Text, LongWritable, Text, LongWrit
       write(token, new LongWritable(tokenCount), context);
    }
 
+   /**
+    * Write the token and count to the MapReduce output.
+    *
+    * @param token   a token
+    * @param count   the token count
+    * @param context MapReduce context
+    * @throws IOException
+    * @throws InterruptedException
+    */
    protected void write(Text token, LongWritable count, Context context) throws IOException, InterruptedException {
       context.write(token, count);
    }

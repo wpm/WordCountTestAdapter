@@ -12,7 +12,8 @@ import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 
 /**
- * Algorithm adapter version of the MapReduce word count example.
+ * Algorithm adapter version of the MapReduce word count example. All the positional arguments except for the last
+ * one are input directories. The last one is the output directory.
  *
  * @author <a href="mailto:billmcn@gmail.com">W.P. McNeill</a>
  */
@@ -44,5 +45,4 @@ public class WordCount extends Configured implements Tool {
       int run = ToolRunner.run(new WordCount(), args);
       System.exit(run);
    }
-
 }

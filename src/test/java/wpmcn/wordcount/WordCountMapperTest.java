@@ -16,6 +16,10 @@ import static junit.framework.Assert.assertEquals;
  * @author <a href="mailto:billmcn@gmail.com">W.P. McNeill</a>
  */
 public class WordCountMapperTest {
+   /**
+    * This test harness subclasses the write method to ignore the MapReduce context and instead write the output to a
+    * list of (key, value) pairs.
+    */
    private class WordCountMapperTestHarness extends WordCountMapper {
       public List<Pair<String, Long>> keyValuePairs = new ArrayList<Pair<String, Long>>();
 
