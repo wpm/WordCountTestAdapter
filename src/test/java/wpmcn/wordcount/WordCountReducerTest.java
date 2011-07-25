@@ -1,8 +1,10 @@
 package wpmcn.wordcount;
 
 import com.sun.tools.javac.util.Pair;
+import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.Mapper;
 import org.junit.Before;
 import org.junit.Test;
 

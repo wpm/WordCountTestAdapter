@@ -42,7 +42,7 @@ public class WordCountMapperTest {
 
    @Test
    public void testMap() throws Exception {
-      wordCountMapper.map(new LongWritable(1), new Text("to be or not to be"));
+      wordCountMapper.map(new LongWritable(1), new Text("To be or not to be"));
       assertEquals(6, wordCountMapper.keyValuePairs.size());
       assertEquals(new Pair<String, Long>("to", (long) 1), wordCountMapper.keyValuePairs.get(0));
       assertEquals(new Pair<String, Long>("be", (long) 1), wordCountMapper.keyValuePairs.get(1));
