@@ -20,7 +20,7 @@ abstract public class WordCountMapAlgorithm extends MapAlgorithm<LongWritable, T
       super(configuration);
    }
 
-   public void map(LongWritable lineNumber, Text line) throws IOException, InterruptedException {
+   protected void map(LongWritable lineNumber, Text line) throws IOException, InterruptedException {
       StringTokenizer tokenizer = new StringTokenizer(line.toString());
       while (tokenizer.hasMoreTokens()) {
          Text token = new Text(tokenizer.nextToken().toLowerCase());
